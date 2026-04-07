@@ -1,39 +1,30 @@
-// funcion toNonEmptyString , funcion que permite validar si un string no esta vaci
+"use strict";
 
-function toNonEmptyString(str) {
-  if (typeof str !== 'string' || str.trim() === '') {
-    throw new Error('El valor debe ser un string no vacío');
+// Valida que el string no esté vacío
+export function toNonEmptyString(str) {
+  if (typeof str !== "string" || str.trim() === "") {
+    throw new Error("El string está vacío");
   }
-    return str;
+  return str;
 }
 
-function toNoEmptyString (value, label = 'texto') {
-    const str = String(value).trim();// Convertir a string y eliminar espacios en blanco
-    if (!str) {
-        throw new Error(`El ${label} no puede estar vacío`);
-    }
-    return str;
+// Convierte a formato Título
+export function titleCase(str) {
+  toNonEmptyString(str);
 
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+    .join(" ");
 }
-    
 
-// si esta vacio lanza un error
+// Convierte a slug
+export function slugify(str) {
+  toNonEmptyString(str);
 
-//funcion titleCase, funcion que perASEmite convertir un string a titulo
-
- export function titleCase(text) {  // "hola mundo" -> "Hola Mundo"
-    return text.toLowerCase()// Convertir a minúsculas Hola Mundo -> hola mundo
-        .split(' ') // Dividir en palabras hola mundo -> ["hola", "mundo"]
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalizar la primera letra de cada palabra
-        .join(' '); // Unir las palabras de nuevo en una cadena
-}
-//funcion slugify, funcion que permite convertir un string a slug ejemplo:
-//  "hola mundo" - "hola-mundo"
-// Convertir a slug
-export function slugify(text) {
-  return text
+  return str
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-') // espacios -> guiones
-    .replace(/[^\w\-]+/g, ''); // quitar caracteres raros
+    .replace(/\s+/g, "-");
 }

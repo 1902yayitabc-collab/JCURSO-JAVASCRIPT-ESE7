@@ -1,36 +1,23 @@
 // Sumar todos los elementos de un array
-export function sumArray(arr) {
-  if (!Array.isArray(arr)) {
-    throw new Error("Debe ser un array");
-  }
-
-  return arr.reduce((acc, num) => acc + num, 0);
+function sumArray(arr) {
+  return arr.reduce((acc, curr) => acc + curr, 0);
 }
 
-
-// Promedio de un array
-export function averageArray(arr) {
-  if (!Array.isArray(arr) || arr.length === 0) {
-    throw new Error("Array inválido");
-  }
-
+// Calcular el promedio de un array
+function averageArray(arr) {
+  if (arr.length === 0) return 0;
   return sumArray(arr) / arr.length;
 }
 
-
-// Agrupar por propiedad
-export function groupArrayBy(arr, prop) {
-  if (!Array.isArray(arr)) {
-    throw new Error("Debe ser un array");
-  }
-
+// Agrupar elementos de un array por una propiedad
+function groupArrayBy(arr, property) {
   return arr.reduce((acc, item) => {
-    const key = item[prop];
-
+    const key = item[property];
+    
     if (!acc[key]) {
       acc[key] = [];
     }
-
+    
     acc[key].push(item);
     return acc;
   }, {});

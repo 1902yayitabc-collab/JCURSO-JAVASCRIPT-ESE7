@@ -1,99 +1,86 @@
-// 1️⃣ Scope global
-const ciudad = "Bogotá";
+// scope global 
+//El scope es el alcance donde una variable existe y se puede usar.
+// Scope global
+//- variable definia fuera de aulquier funcion o bloque 
+//- accesible desde cualquier parte del codigo
+//- existe mientras el programa se ejecuta
 
-function mostrarCiudad() {
-    console.log(ciudad); // acceso global
+const appName = "GastosApp"; // scope global
+
+function showAppName() {
+    console.log(appName);// la ve por que esta en el scope global
 }
-mostrarCiudad();
 
+showAppName();
 
-// 2️⃣ Scope de función
-function saludar() {
-    const mensaje = "Hola";
-    console.log(mensaje);
+// scope de funcion
+//- variable definida dentro de una funcion
+//- accesible solo dentro de la funcion
+//- existe mientras la funcion se ejecuta
+
+function showAppName() {
+    const appName = "GastosApp"; // scope de funcion
+    console.log(appName);// la ve por que esta en el scope de funcion
 }
-saludar();
-// console.log(mensaje); 
-// error
 
+showAppName();
 
-// 3️⃣ Scope de bloque
+function calcularTotal() {
+    const total = 100; // scope de funcion
+    return 100 * (1 + total)
+}
+// conosole.log(total);// error por que no esta en el scope de funcion
+calcularTotal();
+
+// scope de bloque
+//- variable definida dentro de un bloque
+//- accesible solo dentro del bloque
+//- existe mientras el bloque se ejecuta
+
 if (true) {
-    let edad = 17;
-    console.log(edad);
+    const total = 100; // scope de bloque
+    console.log(total);// la ve por que esta en el scope de bloque
 }
-// console.log(edad);  error
+// conosole.log(total);// error por que no esta en el scope de bloque
+calcularTotal();
 
+// shadowing (sombras)
+// ocurre cuando una variable local tiene el mismo nombre que una variable global
+// la variable local "sombrea" la variable global
+// la variable local tiene prioridad sobre la variable global
 
-// 4️⃣ Shadowing
-const nombre = "Mariana";
+const total = 100; // scope global
 
-function mostrarNombre() {
-    const nombre = "Ana";
-    console.log(nombre); // Ana
+function calcularTotal() {
+    const total = 200; // scope de funcion
+    return 100 * (1 + total)
 }
-mostrarNombre();
-console.log(nombre); // Mariana
+// conosole.log(total);// error por que no esta en el scope de funcion
+calcularTotal();
 
+// Hoisting (elevacion)
+//- las variables declaradas con var son elevadas al scope global
+//- las variables declaradas con let y const no son elevadas al scope global
 
-// 5️⃣ Hoisting con función
-saludo();
+sayHi();
 
-function saludo() {
-    console.log("Hola desde hoisting");
-}
-
-
-// 6️⃣ Hoisting con var
-console.log(numero); // undefined
-var numero = 10;
-
-
-// 7️⃣ let y const NO hacen hoisting usable
-// console.log(x);  error
-let x = 5;
-
-
-// 8️⃣ Closure básico
-function crearSaludo(nombre) {
-    return function() {
-        console.log("Hola " + nombre);
-    }
+function sayHi() {
+    console.log("Hola");
 }
 
-const saludarSara = crearSaludo("Sara");
-saludarSara();
+// Closures: funcione  que recuerdan el entorno donde fueron creadas
+//- una closure es una funcion que tiene acceso a las variables de su scope padre
 
 
-// 9️⃣ Closure contador
 function crearContador() {
     let contador = 0;
-
     return function() {
         contador++;
         return contador;
     }
 }
 
-const contar = crearContador();
-console.log(contar());
-console.log(contar());
-console.log(contar());
-
-
-// 🔟 Mezcla de scopes
-const precio = 100;
-
-function calcular() {
-    const precio = 200; // shadowing
-
-    if (true) {
-        let descuento = 50;
-        console.log(precio - descuento); // 150
-    }
-
-    // console.log(descuento); // error
-}
-
-calcular();
-console.log(precio); // 100
+const contador = crearContador();
+console.log(contador());
+console.log(contador());
+console.log(contador());
